@@ -68,7 +68,6 @@ public class ShardedJedisPoolTest {
             user.put("user",list);
             //map存入 redis
             jedis.setObject("user",user);
-
             Map<String, List<Person>> map1 =(Map<String, List<Person>>) jedis.getObject("user");
             System.out.println(map1.get("user"));
             Map<String, Object> map = new HashMap<String, Object>();

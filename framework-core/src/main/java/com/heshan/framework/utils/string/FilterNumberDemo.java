@@ -1,4 +1,4 @@
-package com.heshan.framework.common.string;
+package com.heshan.framework.utils.string;
 
 /**
  * @author <a href="mailto:heshanshao@ebnew.com">heshanshao</a>

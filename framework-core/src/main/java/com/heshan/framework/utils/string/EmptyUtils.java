@@ -1,4 +1,4 @@
-package com.heshan.framework.common.string;
+package com.heshan.framework.utils.string;
 
 import java.util.List;
 import java.util.Map;
