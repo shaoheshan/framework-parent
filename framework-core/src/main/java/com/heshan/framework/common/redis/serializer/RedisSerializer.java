@@ -80,7 +80,7 @@ class RedisSerializer {
 					bos.write(buf, 0, r);
 				}
 			} catch (IOException e) {
-				logger.warn("Failed to decompress data", e);
+				logger.warn("Failed to decompress date", e);
 				bos = null;
 			} finally {
 				RedisCloseable.close(gis);

@@ -1,6 +1,6 @@
 package com.heshan.framework.common.redis.config;
 
-import com.heshan.framework.common.string.EmptyUtils;
+import com.heshan.framework.utils.string.EmptyUtils;
 
 /**
  * @author <a href="mailto:heshan664754022@gmail.com">frank</a>

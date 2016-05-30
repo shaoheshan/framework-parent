@@ -2,7 +2,7 @@ package com.heshan.framework.common.test;
 
 import com.heshan.framework.common.redis.BidRedis;
 import com.heshan.framework.common.redis.BidRedisFactory;
-import com.heshan.framework.utils.data.DateUtils;
+import com.heshan.framework.utils.date.DateUtils;
 
 import java.util.Date;
 import java.util.concurrent.CyclicBarrier;

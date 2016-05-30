@@ -1,4 +1,4 @@
-package com.heshan.framework.utils.data;
+package com.heshan.framework.utils.date;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
@@ -13,37 +13,7 @@ import java.util.Date;
  * @description
  * @date 2016/5/30 11:55
  */
-public class DateUtils {
-    /**
-     * HH:mm:ss
-     */
-    public static final String TIME_FORMAT = "HH:mm:ss";
-    /**
-     * yyyy-MM-dd
-     */
-    public static final String DATE_FORMAT = "yyyy-MM-dd";
-    /**
-     * yyyyMMddHHmmss
-     */
-    public static final String UNIX_TIME_FORMAT = "yyyyMMddHHmmss";
-    /**
-     * yyyy-MM-dd HH:mm:ss
-     */
-    public static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
-    /**
-     * yyyyMMddHHmmssSSS
-     */
-    public static final String TIMESTAMP_FORMAT_WEBSERVICE = "yyyyMMddHHmmssSSS";
-
-    /**
-     * 日期类型转字符串
-     * @param date 日期
-     * @return 字符串（格式为：yyyy-MM-dd）
-     */
-    public synchronized static String format(Date date) {
-        return DateFormatUtils.format(date, DATE_FORMAT);
-
-    }
+public class DateUtils extends  AbStractDateUtils {
 
 
     public static Integer formatUnixDate(String date, String fmt) {
@@ -84,7 +54,7 @@ public class DateUtils {
      * @return
      */
     public static String formatDate(long millis) {
-        SimpleDateFormat sdf = new SimpleDateFormat(DATE_TIME_FORMAT);
+        SimpleDateFormat sdf = new SimpleDateFormat(DATE_HH_MM_SS);
         return sdf.format(new Date(millis));
     }
 
@@ -130,7 +100,7 @@ public class DateUtils {
         if (fmtDate == null || fmtDate.length() == 0) {
             return null;
         }
-        SimpleDateFormat sdf = new SimpleDateFormat(DATE_TIME_FORMAT);
+        SimpleDateFormat sdf = new SimpleDateFormat(DATE_HH_MM_SS);
         try {
             return (int) (sdf.parse(fmtDate).getTime() / 1000);
         } catch (Exception e) {
@@ -149,7 +119,7 @@ public class DateUtils {
         if (date == null || date.intValue() == 0) {
             return "";
         }
-        SimpleDateFormat sdf = new SimpleDateFormat(DATE_TIME_FORMAT);
+        SimpleDateFormat sdf = new SimpleDateFormat(DATE_HH_MM_SS);
         try {
             Calendar c = Calendar.getInstance();
             c.setTimeInMillis(date * 1000L);

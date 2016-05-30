@@ -30,7 +30,7 @@ public class RedisObject {
 
 	public RedisObject(final int flags, final byte[] data) {
 		if (data.length > MAX_SIZE) {
-			throw new RedisException("Stored data amount is too large [" + data.length + "]");
+			throw new RedisException("Stored date amount is too large [" + data.length + "]");
 		}
 		this.flags = flags;
 		this.data = data;
@@ -38,7 +38,7 @@ public class RedisObject {
 
 	@Override
 	public String toString() {
-		return "RedisObject [MAX_SIZE=" + MAX_SIZE + ", flags=" + flags + ", data=" + Arrays.toString(data) + "]";
+		return "RedisObject [MAX_SIZE=" + MAX_SIZE + ", flags=" + flags + ", date=" + Arrays.toString(data) + "]";
 	}
 
 }
