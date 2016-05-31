@@ -124,6 +124,7 @@
     <activemq.version>5.7.0</activemq.version>
     <mongodb.version>2.7.3</mongodb.version>
     <jedis.version>2.6.2</jedis.version> <!-- 2.6.2 2.2.1 -->
+    <spring.data.redis.version>1.5.0.RELEASE</spring.data.redis.version>
     <kafka.version>0.8.2.1</kafka.version>
     <scala.parser.version>1.0.2</scala.parser.version>
     <scala.version>2.11.5</scala.version>
@@ -1155,6 +1156,11 @@
         <artifactId>jedis</artifactId>
         <version>${jedis.version}</version>
         <type>jar</type>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.data</groupId>
+        <artifactId>spring-data-redis</artifactId>
+        <version>${spring.data.redis.version}</version>
       </dependency>
 
 
