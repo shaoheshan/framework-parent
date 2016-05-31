@@ -1,4 +1,4 @@
-package com.heshan.framework.common.redis.config;
+package com.heshan.framework.redis.config;
 
 import com.heshan.framework.utils.string.EmptyUtils;
 
@@ -35,7 +35,6 @@ public class RedisContext {
     }
 
     /**
-     * ɾ��.
      *
      */
     public static void remove() {

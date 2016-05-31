@@ -2,7 +2,7 @@
  * <p>RedisSerializer.java</p>
  *   
  */
-package com.heshan.framework.common.redis.serializer;
+package com.heshan.framework.redis.serializer;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -13,7 +13,7 @@ import java.util.zip.GZIPOutputStream;
 
 import com.caucho.hessian.io.Hessian2Input;
 import com.caucho.hessian.io.Hessian2Output;
-import com.heshan.framework.common.redis.exception.RedisException;
+import com.heshan.framework.redis.exception.RedisException;
 import org.apache.log4j.Logger;
 
 

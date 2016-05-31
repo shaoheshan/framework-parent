@@ -12,6 +12,9 @@
 
   <modules>
     <module>framework-core</module>
+    <module>framework-redis-jredis</module>
+    <module>framework-spring-data-redis</module>
+
     <!-- <module>framework-core-old</module>
     <module>framework-dao</module>
     <module>framework-redis</module>
@@ -149,133 +152,133 @@
   <dependencyManagement>
     <dependencies>
       <!-- framework 内部所有模块 -->
-    <!--  <dependency>
-        <groupId>cn.bidlink.framework</groupId>
+     <dependency>
+        <groupId>cn.heshan.framework</groupId>
         <artifactId>framework-core</artifactId>
         <version>${framework.version}</version>
       </dependency>
+      <!--
+            <dependency>
+              <groupId>cn.bidlink.framework</groupId>
+              <artifactId>framework-cors</artifactId>
+              <version>${framework.version}</version>
+            </dependency>
+            <dependency>
+              <groupId>cn.bidlink.framework</groupId>
+              <artifactId>framework-core-old</artifactId>
+              <version>${framework.version}</version>
+            </dependency>
+            <dependency>
+              <groupId>cn.bidlink.framework</groupId>
+              <artifactId>framework-dao</artifactId>
+              <version>${framework.version}</version>
+            </dependency>
 
-      <dependency>
-        <groupId>cn.bidlink.framework</groupId>
-        <artifactId>framework-cors</artifactId>
-        <version>${framework.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>cn.bidlink.framework</groupId>
-        <artifactId>framework-core-old</artifactId>
-        <version>${framework.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>cn.bidlink.framework</groupId>
-        <artifactId>framework-dao</artifactId>
-        <version>${framework.version}</version>
-      </dependency>
+            <dependency>
+              <groupId>cn.bidlink.framework</groupId>
+              <artifactId>framework-log4j</artifactId>
+              <version>${framework.version}</version>
+            </dependency>
 
-      <dependency>
-        <groupId>cn.bidlink.framework</groupId>
-        <artifactId>framework-log4j</artifactId>
-        <version>${framework.version}</version>
-      </dependency>
+            <dependency>
+              <groupId>cn.bidlink.framework</groupId>
+              <artifactId>framework-web</artifactId>
+              <version>${framework.version}</version>
+            </dependency>
 
-      <dependency>
-        <groupId>cn.bidlink.framework</groupId>
-        <artifactId>framework-web</artifactId>
-        <version>${framework.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>cn.bidlink.framework</groupId>
-        <artifactId>framework-jms</artifactId>
-        <version>${framework.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>cn.bidlink.framework</groupId>
-        <artifactId>framework-redis</artifactId>
-        <version>${framework.version}</version>
-      </dependency>
-
-
-      <dependency>
-        <groupId>cn.bidlink.framework</groupId>
-        <artifactId>framework-hazelcast-client</artifactId>
-        <version>${framework.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>cn.bidlink.framework</groupId>
-        <artifactId>framework-kafka</artifactId>
-        <version>${framework.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>cn.bidlink.framework</groupId>
-        <artifactId>framework-all</artifactId>
-        <version>${framework.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>cn.bidlink.framework</groupId>
-        <artifactId>framework-hbase</artifactId>
-        <version>${framework.hbase.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>cn.bidlink.framework</groupId>
-        <artifactId>framework-hdfs</artifactId>
-        <version>${framework.hbase.version}</version>
-      </dependency>
+            <dependency>
+              <groupId>cn.bidlink.framework</groupId>
+              <artifactId>framework-jms</artifactId>
+              <version>${framework.version}</version>
+            </dependency>
+            <dependency>
+              <groupId>cn.bidlink.framework</groupId>
+              <artifactId>framework-redis</artifactId>
+              <version>${framework.version}</version>
+            </dependency>
 
 
-      <dependency>
-        <groupId>cn.bidlink.framework</groupId>
-        <artifactId>framework-all-small</artifactId>
-        <version>${framework.version}</version>
-      </dependency>
+            <dependency>
+              <groupId>cn.bidlink.framework</groupId>
+              <artifactId>framework-hazelcast-client</artifactId>
+              <version>${framework.version}</version>
+            </dependency>
 
-      <dependency>
-        <groupId>cn.bidlink.framework</groupId>
-        <artifactId>framework-config-client</artifactId>
-        <version>${framework.version}</version>
-      </dependency>
+            <dependency>
+              <groupId>cn.bidlink.framework</groupId>
+              <artifactId>framework-kafka</artifactId>
+              <version>${framework.version}</version>
+            </dependency>
 
-      <dependency>
-        <groupId>cn.bidlink.framework</groupId>
-        <artifactId>framework-config-maven</artifactId>
-        <version>${framework.version}</version>
-      </dependency>
+            <dependency>
+              <groupId>cn.bidlink.framework</groupId>
+              <artifactId>framework-all</artifactId>
+              <version>${framework.version}</version>
+            </dependency>
 
-      <dependency>
-        <groupId>cn.bidlink.framework</groupId>
-        <artifactId>framework-spring-boot</artifactId>
-        <version>${framework.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>cn.bidlink.framework</groupId>
-        <artifactId>framework-jersey-client</artifactId>
-        <version>${framework.version}</version>
-      </dependency>
+            <dependency>
+              <groupId>cn.bidlink.framework</groupId>
+              <artifactId>framework-hbase</artifactId>
+              <version>${framework.hbase.version}</version>
+            </dependency>
+            <dependency>
+              <groupId>cn.bidlink.framework</groupId>
+              <artifactId>framework-hdfs</artifactId>
+              <version>${framework.hbase.version}</version>
+            </dependency>
 
-      <dependency>
-        <groupId>cn.bidlink.framework</groupId>
-        <artifactId>framework-jersey-server</artifactId>
-        <version>${framework.version}</version>
-      </dependency>
 
-      <dependency>
-        <groupId>cn.bidlink.framework</groupId>
-        <artifactId>framework-tomcat</artifactId>
-        <version>${framework.version}</version>
-      </dependency>
+            <dependency>
+              <groupId>cn.bidlink.framework</groupId>
+              <artifactId>framework-all-small</artifactId>
+              <version>${framework.version}</version>
+            </dependency>
 
-      <dependency>
-        <groupId>cn.bidlink.framework</groupId>
-        <artifactId>framework-multi-dao</artifactId>
-        <version>${framework.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>cn.bidlink.framework</groupId>
-        <artifactId>rest-message-client</artifactId>
-        <version>${framework.version}</version>
-      </dependency>-->
+            <dependency>
+              <groupId>cn.bidlink.framework</groupId>
+              <artifactId>framework-config-client</artifactId>
+              <version>${framework.version}</version>
+            </dependency>
+
+            <dependency>
+              <groupId>cn.bidlink.framework</groupId>
+              <artifactId>framework-config-maven</artifactId>
+              <version>${framework.version}</version>
+            </dependency>
+
+            <dependency>
+              <groupId>cn.bidlink.framework</groupId>
+              <artifactId>framework-spring-boot</artifactId>
+              <version>${framework.version}</version>
+            </dependency>
+            <dependency>
+              <groupId>cn.bidlink.framework</groupId>
+              <artifactId>framework-jersey-client</artifactId>
+              <version>${framework.version}</version>
+            </dependency>
+
+            <dependency>
+              <groupId>cn.bidlink.framework</groupId>
+              <artifactId>framework-jersey-server</artifactId>
+              <version>${framework.version}</version>
+            </dependency>
+
+            <dependency>
+              <groupId>cn.bidlink.framework</groupId>
+              <artifactId>framework-tomcat</artifactId>
+              <version>${framework.version}</version>
+            </dependency>
+
+            <dependency>
+              <groupId>cn.bidlink.framework</groupId>
+              <artifactId>framework-multi-dao</artifactId>
+              <version>${framework.version}</version>
+            </dependency>
+            <dependency>
+              <groupId>cn.bidlink.framework</groupId>
+              <artifactId>rest-message-client</artifactId>
+              <version>${framework.version}</version>
+            </dependency>-->
 
       <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>

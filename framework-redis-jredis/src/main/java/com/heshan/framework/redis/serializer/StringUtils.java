@@ -2,7 +2,7 @@
  * <p>StringUtils.java</p>
  *   
  */
-package com.heshan.framework.common.redis.serializer;
+package com.heshan.framework.redis.serializer;
 
 import java.util.Collection;
 

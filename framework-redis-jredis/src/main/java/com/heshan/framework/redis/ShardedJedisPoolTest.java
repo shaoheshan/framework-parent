@@ -1,18 +1,12 @@
-package com.heshan.framework.common.test;
+package com.heshan.framework.redis;
 
-import com.google.common.collect.Lists;
-import com.heshan.framework.common.redis.BidRedis;
-import com.heshan.framework.common.redis.BidRedisFactory;
+
 import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.JedisShardInfo;
-import redis.clients.jedis.ShardedJedis;
 import redis.clients.jedis.ShardedJedisPool;
 
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author <a href="mailto:heshan664754022@gmail.com">Frank</a>
@@ -57,8 +51,8 @@ public class ShardedJedisPoolTest {
                 pool.returnResource(jds);
             }
         }*/
-        try {
-            BidRedis jedis= BidRedisFactory.getBidRedis();
+       /* try {
+            BaseRedis jedis= BaseRedisFactory.getBidRedis();
             List<Person> list= Lists.newArrayList();
             Person person=new Person();
             person.setName("zhangsan");
@@ -86,7 +80,7 @@ public class ShardedJedisPoolTest {
 
         }finally {
            // pool.returnResource(jedis);
-        }
+        }*/
     }
 
     private static int index = 1;

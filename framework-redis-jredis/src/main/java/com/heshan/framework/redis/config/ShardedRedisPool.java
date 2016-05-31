@@ -1,4 +1,4 @@
-package com.heshan.framework.common.redis.config;
+package com.heshan.framework.redis.config;
 
 import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.ShardedJedis;

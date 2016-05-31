@@ -2,9 +2,9 @@
  * <p>RedisObject.java</p>
  *   
  */
-package com.heshan.framework.common.redis.serializer;
+package com.heshan.framework.redis.serializer;
 
-import com.heshan.framework.common.redis.exception.RedisException;
+import com.heshan.framework.redis.exception.RedisException;
 
 import java.util.Arrays;
 

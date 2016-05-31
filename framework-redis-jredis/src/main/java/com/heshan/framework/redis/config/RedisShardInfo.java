@@ -1,6 +1,6 @@
-package com.heshan.framework.common.redis.config;
+package com.heshan.framework.redis.config;
 
-import com.heshan.framework.common.redis.exception.RedisException;
+import com.heshan.framework.redis.exception.RedisException;
 import redis.clients.jedis.JedisShardInfo;
 
 import java.util.ArrayList;
@@ -12,9 +12,31 @@ import java.util.List;
  * @date 2016/3/11
  */
 public class RedisShardInfo {
+
+
+    private List<JedisShardInfo> jedisShardInfo;
+
+    private void setJedisShardInfo(String host, int port, String auth) {
+        JedisShardInfo jedisInfo = new JedisShardInfo(host, port);
+        if (auth != null && !"".equals(auth))
+            jedisInfo.setPassword(auth);
+        if (jedisShardInfo == null) {
+            jedisShardInfo = new ArrayList<JedisShardInfo>();
+        }
+        jedisShardInfo.add(jedisInfo);
+    }
+
+
+    public List<JedisShardInfo> getJedisShardInfo() {
+        if (jedisShardInfo == null || jedisShardInfo.size() == 0) {
+            throw new RedisException("framework-redis jedisShardInfo");
+        }
+        return jedisShardInfo;
+    }
+
     public RedisShardInfo(String shardInfo) {
         if (shardInfo == null || "".equals(shardInfo)) {
-            throw new NullPointerException("framework-redis shardInfo");
+            throw new NullPointerException("framework-redis-jredis shardInfo");
         }
         String[] shardInfos = shardInfo.split(",");
         jedisShardInfo = new ArrayList<JedisShardInfo>();
@@ -31,23 +53,6 @@ public class RedisShardInfo {
         }
     }
 
-    private void setJedisShardInfo(String host, int port, String auth) {
-        JedisShardInfo jedisInfo = new JedisShardInfo(host, port);
-        if (auth != null && !"".equals(auth))
-            jedisInfo.setPassword(auth);
-        if (jedisShardInfo == null) {
-            jedisShardInfo = new ArrayList<JedisShardInfo>();
-        }
-        jedisShardInfo.add(jedisInfo);
-    }
 
-    private List<JedisShardInfo> jedisShardInfo;
-
-    public List<JedisShardInfo> getJedisShardInfo() {
-        if (jedisShardInfo == null || jedisShardInfo.size() == 0) {
-            throw new RedisException("framework-redis jedisShardInfo");
-        }
-        return jedisShardInfo;
-    }
 
 }

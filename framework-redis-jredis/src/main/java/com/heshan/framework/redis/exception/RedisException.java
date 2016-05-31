@@ -1,4 +1,4 @@
-package com.heshan.framework.common.redis.exception;
+package com.heshan.framework.redis.exception;
 
 /**
  * @author <a href="mailto:heshan664754022@gmail.com">frank</a>

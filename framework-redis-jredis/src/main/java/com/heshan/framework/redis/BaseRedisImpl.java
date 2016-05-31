@@ -1,15 +1,15 @@
-package com.heshan.framework.common.redis;
+package com.heshan.framework.redis;
 
-import com.heshan.framework.common.redis.config.RedisContext;
-import com.heshan.framework.common.redis.config.ShardedRedisPool;
-import com.heshan.framework.common.redis.serializer.SerializerFactory;
+import com.heshan.framework.redis.config.RedisContext;
+import com.heshan.framework.redis.config.ShardedRedisPool;
+import com.heshan.framework.redis.serializer.SerializerFactory;
 import com.heshan.framework.utils.string.EmptyUtils;
 import org.apache.log4j.Logger;
 import redis.clients.jedis.ShardedJedis;
 import redis.clients.jedis.SortingParams;
 import redis.clients.jedis.exceptions.JedisConnectionException;
 import redis.clients.util.SafeEncoder;
-import com.heshan.framework.utils.*;
+
 import java.util.*;
 
 /**
@@ -19,7 +19,7 @@ import java.util.*;
  * @date 2016/3/11
  */
 
-public class BidRedisImpl implements BidRedis {
+public class BaseRedisImpl implements BaseRedis {
     transient Logger logger = Logger.getLogger(getClass());
     private ShardedRedisPool shardedJedisPool;
 
@@ -29,9 +29,6 @@ public class BidRedisImpl implements BidRedis {
             logger.error("Key can not be empty!");
             return false;
         }
-
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
 
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
@@ -60,9 +57,6 @@ public class BidRedisImpl implements BidRedis {
             return 0L;
         }
 
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
-
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
         try {
@@ -89,9 +83,6 @@ public class BidRedisImpl implements BidRedis {
             return null;
         }
 
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
-
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
         try {
@@ -117,9 +108,6 @@ public class BidRedisImpl implements BidRedis {
             logger.error("Key can not be empty!");
             return 0L;
         }
-
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
 
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
@@ -175,9 +163,6 @@ public class BidRedisImpl implements BidRedis {
             return 0L;
         }
 
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
-
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
         try {
@@ -230,10 +215,6 @@ public class BidRedisImpl implements BidRedis {
             logger.error("Key can not be empty!");
             return 0L;
         }
-
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
-
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
         try {
@@ -260,8 +241,6 @@ public class BidRedisImpl implements BidRedis {
             return 0L;
         }
 
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
 
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
@@ -324,10 +303,6 @@ public class BidRedisImpl implements BidRedis {
             logger.info("Value can not be empty!");
             return "failed";
         }
-
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
-
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
         try {
@@ -358,9 +333,6 @@ public class BidRedisImpl implements BidRedis {
             return "failed";
         }
 
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
-
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
         try {
@@ -390,9 +362,6 @@ public class BidRedisImpl implements BidRedis {
             logger.info("Value can not be empty!");
             return null;
         }
-
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
 
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
@@ -429,9 +398,6 @@ public class BidRedisImpl implements BidRedis {
             return "failed";
         }
 
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
-
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
         try {
@@ -461,9 +427,6 @@ public class BidRedisImpl implements BidRedis {
             logger.error("Key can not be empty!");
             return null;
         }
-
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
 
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
@@ -495,9 +458,6 @@ public class BidRedisImpl implements BidRedis {
             return null;
         }
 
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
-
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
         try {
@@ -523,9 +483,6 @@ public class BidRedisImpl implements BidRedis {
             logger.error("Key can not be empty!");
             return null;
         }
-
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
 
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
@@ -553,9 +510,6 @@ public class BidRedisImpl implements BidRedis {
             return null;
         }
 
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
-
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
         try {
@@ -582,9 +536,6 @@ public class BidRedisImpl implements BidRedis {
             return null;
         }
 
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
-
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
         try {
@@ -610,9 +561,6 @@ public class BidRedisImpl implements BidRedis {
             logger.error("Key can not be empty!");
             return null;
         }
-
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
 
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
@@ -648,9 +596,6 @@ public class BidRedisImpl implements BidRedis {
             return null;
         }
 
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
-
         Long start = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
         try {
@@ -680,9 +625,6 @@ public class BidRedisImpl implements BidRedis {
             logger.info("Map can not be empty!");
             return false;
         }
-
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
 
         Long start = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
@@ -719,9 +661,6 @@ public class BidRedisImpl implements BidRedis {
             return null;
         }
 
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
-
         Long start = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
         try {
@@ -747,9 +686,6 @@ public class BidRedisImpl implements BidRedis {
             logger.info("Key can not be empty!");
             return null;
         }
-
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
 
         Long start = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
@@ -788,9 +724,6 @@ public class BidRedisImpl implements BidRedis {
             logger.info("Fields can not be empty!");
             return null;
         }
-
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
 
         Long start = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
@@ -834,9 +767,6 @@ public class BidRedisImpl implements BidRedis {
             return false;
         }
 
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
-
         Long start = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
         try {
@@ -866,9 +796,6 @@ public class BidRedisImpl implements BidRedis {
             logger.info("Fields can not be empty!");
             return 0L;
         }
-
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
 
         Long start = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
@@ -900,9 +827,6 @@ public class BidRedisImpl implements BidRedis {
             return 0L;
         }
 
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
-
         Long start = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
         try {
@@ -929,9 +853,6 @@ public class BidRedisImpl implements BidRedis {
             return null;
         }
 
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
-
         Long start = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
         try {
@@ -957,9 +878,6 @@ public class BidRedisImpl implements BidRedis {
             logger.info("Key can not be empty!");
             return null;
         }
-
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
 
         Long start = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
@@ -997,9 +915,6 @@ public class BidRedisImpl implements BidRedis {
             return 0L;
         }
 
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
-
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
         try {
@@ -1035,9 +950,6 @@ public class BidRedisImpl implements BidRedis {
             return 0L;
         }
 
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
-
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
         try {
@@ -1068,9 +980,6 @@ public class BidRedisImpl implements BidRedis {
             logger.info("Key can not be empty!");
             return 0L;
         }
-
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
 
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
@@ -1109,9 +1018,6 @@ public class BidRedisImpl implements BidRedis {
             logger.info("end is greater than or equal to start!");
             return null;
         }
-
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
 
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
@@ -1159,9 +1065,6 @@ public class BidRedisImpl implements BidRedis {
             return null;
         }
 
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
-
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
         try {
@@ -1189,9 +1092,6 @@ public class BidRedisImpl implements BidRedis {
             return null;
         }
 
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
-
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
         try {
@@ -1218,9 +1118,6 @@ public class BidRedisImpl implements BidRedis {
             logger.info("Key can not be empty!");
             return null;
         }
-
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
 
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
@@ -1253,9 +1150,6 @@ public class BidRedisImpl implements BidRedis {
             return 0L;
         }
 
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
-
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
         try {
@@ -1283,9 +1177,6 @@ public class BidRedisImpl implements BidRedis {
             return null;
         }
 
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
-
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
         try {
@@ -1311,9 +1202,7 @@ public class BidRedisImpl implements BidRedis {
             logger.info("Key can not be empty!");
             return null;
         }
-
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
+       
 
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
@@ -1344,9 +1233,7 @@ public class BidRedisImpl implements BidRedis {
             logger.info("Member can not be empty!");
             return null;
         }
-
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
+       
 
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
@@ -1378,8 +1265,6 @@ public class BidRedisImpl implements BidRedis {
             return null;
         }
 
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
 
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
@@ -1418,9 +1303,7 @@ public class BidRedisImpl implements BidRedis {
             logger.info("Members can not be empty!");
             return 0L;
         }
-
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
+       
 
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
@@ -1451,10 +1334,6 @@ public class BidRedisImpl implements BidRedis {
             logger.info("Key can not be empty!");
             return null;
         }
-
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
-
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
         try {
@@ -1480,10 +1359,6 @@ public class BidRedisImpl implements BidRedis {
             logger.info("Key can not be empty!");
             return 0L;
         }
-
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
-
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
         try {
@@ -1513,10 +1388,6 @@ public class BidRedisImpl implements BidRedis {
             logger.info("Member can not be empty!");
             return false;
         }
-
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
-
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
         try {
@@ -1542,10 +1413,6 @@ public class BidRedisImpl implements BidRedis {
             logger.info("Key can not be empty!");
             return null;
         }
-
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
-
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
         try {
@@ -1575,10 +1442,6 @@ public class BidRedisImpl implements BidRedis {
             logger.info("Member can not be empty!");
             return 0L;
         }
-
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
-
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
         try {
@@ -1608,10 +1471,6 @@ public class BidRedisImpl implements BidRedis {
             logger.info("ScoreMembers can not be empty!");
             return 0L;
         }
-
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
-
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
         try {
@@ -1650,10 +1509,6 @@ public class BidRedisImpl implements BidRedis {
             logger.info("Key can not be empty!");
             return 0L;
         }
-
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
-
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
         try {
@@ -1687,10 +1542,6 @@ public class BidRedisImpl implements BidRedis {
             logger.info("Member can not be empty!");
             return 0D;
         }
-
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
-
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
         try {
@@ -1716,9 +1567,6 @@ public class BidRedisImpl implements BidRedis {
             logger.info("Key can not be empty!");
             return null;
         }
-
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
 
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
@@ -1746,9 +1594,6 @@ public class BidRedisImpl implements BidRedis {
             return null;
         }
 
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
-
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
         try {
@@ -1774,9 +1619,6 @@ public class BidRedisImpl implements BidRedis {
             logger.info("Key can not be empty!");
             return 0L;
         }
-
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
 
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
@@ -1808,9 +1650,6 @@ public class BidRedisImpl implements BidRedis {
             return 0L;
         }
 
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
-
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
         try {
@@ -1841,9 +1680,6 @@ public class BidRedisImpl implements BidRedis {
             return 0L;
         }
 
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
-
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
         try {
@@ -1869,9 +1705,6 @@ public class BidRedisImpl implements BidRedis {
             logger.info("Key can not be empty!");
             return null;
         }
-
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
 
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
@@ -1906,10 +1739,6 @@ public class BidRedisImpl implements BidRedis {
             logger.info("Key can not be empty!");
             return null;
         }
-
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
-
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
         try {
@@ -1943,9 +1772,6 @@ public class BidRedisImpl implements BidRedis {
             logger.info("Key can not be empty!");
             return null;
         }
-
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
 
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
@@ -1981,9 +1807,6 @@ public class BidRedisImpl implements BidRedis {
             return null;
         }
 
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
-
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
         try {
@@ -2017,9 +1840,6 @@ public class BidRedisImpl implements BidRedis {
             logger.info("Key can not be empty!");
             return null;
         }
-
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
 
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
@@ -2055,9 +1875,6 @@ public class BidRedisImpl implements BidRedis {
             return null;
         }
 
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
-
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
         try {
@@ -2092,9 +1909,6 @@ public class BidRedisImpl implements BidRedis {
             return null;
         }
 
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
-
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;
         try {
@@ -2128,9 +1942,6 @@ public class BidRedisImpl implements BidRedis {
             logger.info("Key can not be empty!");
             return null;
         }
-
-        // 增加租户标识
-        key = RedisContext.getTenant() + key;
 
         Long begin = System.currentTimeMillis();
         ShardedJedis shardedJedis = null;

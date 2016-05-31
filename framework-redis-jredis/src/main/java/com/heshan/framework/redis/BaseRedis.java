@@ -1,4 +1,4 @@
-package com.heshan.framework.common.redis;
+package com.heshan.framework.redis;
 
 import redis.clients.jedis.SortingParams;
 
@@ -10,18 +10,8 @@ import java.util.Set;
  * @author <a href="mailto:heshan664754022@gmail.com">frank</a>
  * @version V1.0
  * @date 2016/3/11
- *//**
- * @author <a href="mailto:heshan664754022@gmail.com">frank</a>
- * @version V1.0
- * @date 2016/3/11
  */
-/**
- * .
- *
- * @version Ver 1.0
- * @Date  上午10:22:26
- */
-public interface BidRedis {
+public interface BaseRedis {
 
     /**
      * 确认key是否存在.

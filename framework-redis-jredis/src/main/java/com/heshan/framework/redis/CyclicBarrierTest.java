@@ -1,7 +1,5 @@
-package com.heshan.framework.common.test;
+package com.heshan.framework.redis;
 
-import com.heshan.framework.common.redis.BidRedis;
-import com.heshan.framework.common.redis.BidRedisFactory;
 import com.heshan.framework.utils.date.DateUtils;
 
 import java.util.Date;
@@ -17,7 +15,7 @@ import java.util.concurrent.Executors;
  */
 public class CyclicBarrierTest {
     //初始化
-    BidRedis jedis= BidRedisFactory.getBidRedis();
+    BaseRedis jedis= RedisFactory.getBaseRedis();
 
 
     public static void main(String[] args) {

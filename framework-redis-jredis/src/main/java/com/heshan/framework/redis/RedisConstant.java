@@ -1,11 +1,11 @@
-package com.heshan.framework.common.redis;
+package com.heshan.framework.redis;
 
 /**
- * NycRedisConstant.
+ * RedisConstant.
  *
  * @version : Ver 1.0
  */
-public class BidRedisConstant  {
+public class RedisConstant {
 
 	//public static String redisConf="10.4.0.20:6379,101.200.190.144:6379:test123";
 	public static String redisConf="101.200.190.144:6379";
