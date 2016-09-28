@@ -19,6 +19,7 @@ public class ConsumerTest {
         Consumer consumer = ONSFactory.createConsumer(properties);
         consumer.subscribe("frank_testMq", "*", new MessageListener() {
             public Action consume(Message message, ConsumeContext context) {
+                System.out.println("Key: " + new String(message.getKey()));
                 System.out.println("Receive: " + new String(message.getBody()));
                 return Action.CommitMessage;
             }

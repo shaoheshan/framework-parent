@@ -1,9 +1,7 @@
 package com.heshan.framework.redis;
 
 
-import redis.clients.jedis.JedisPoolConfig;
-import redis.clients.jedis.JedisShardInfo;
-import redis.clients.jedis.ShardedJedisPool;
+import redis.clients.jedis.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,11 +20,11 @@ public class ShardedJedisPoolTest {
         config.setMaxWaitMillis(3000L);// 获取对象时最大等待时间
         config.setTestOnBorrow(false);
         config.setTestWhileIdle(true);
-        String hostA = "101.200.190.144";
+        String hostA = "b6d29933d34849a3.redis.rds.aliyuncs.com";
         int portA = 6379;
         List<JedisShardInfo> jdsInfoList =new ArrayList<JedisShardInfo>(1);
         JedisShardInfo infoA = new JedisShardInfo(hostA, portA);
-        //infoA.setPassword("test123");
+        infoA.setPassword("b6d29933d34849a3:Heshanshao123");
         jdsInfoList.add(infoA);
         pool =new ShardedJedisPool(config, jdsInfoList);
     }
@@ -81,6 +79,27 @@ public class ShardedJedisPoolTest {
         }finally {
            // pool.returnResource(jedis);
         }*/
+        try {
+            String host = "b6d29933d34849a3.redis.rds.aliyuncs.com";//控制台显示访问地址
+            int port = 6379;
+            Jedis jedis = new Jedis(host, port);
+            //鉴权信息由用户名:密码拼接而成
+            jedis.auth("b6d29933d34849a3:Heshanshao123");//instance_id:password
+            String key = "redis";
+            String value = "aliyun-redis";
+            //select db默认为0
+            jedis.select(1);
+            //set一个key
+            jedis.set(key, value);
+            System.out.println("Set Key " + key + " Value: " + value);
+            //get 设置进去的key
+            String getvalue = jedis.get(key);
+            System.out.println("Get Key " + key + " ReturnValue: " + getvalue);
+            jedis.quit();
+            jedis.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private static int index = 1;
