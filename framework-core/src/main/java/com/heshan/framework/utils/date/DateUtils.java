@@ -327,4 +327,35 @@ public class DateUtils extends  AbStractDateUtils {
         }
         return false;
     }
+    /**
+     * 根据参数的日期获取 参数日期零时零分零秒的时间
+     * @param date
+     * @return
+     */
+    public static Long getDayZeroTime(Date date) {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        Date zero = calendar.getTime();
+        return zero.getTime();
+    }
+
+    /**
+     * 根据参数的日期获取 参数日期23时59分59秒的时间
+     * @param date
+     * @return
+     */
+    public static Long getDayEndTime(Date date) {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        Date zero = calendar.getTime();
+        return zero.getTime();
+    }
 }
