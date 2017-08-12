@@ -1,4 +1,4 @@
-package com.heshan.framework.common.VM;
+package com.heshan.framework.common.jvm;
 
 import com.google.common.collect.Lists;
 

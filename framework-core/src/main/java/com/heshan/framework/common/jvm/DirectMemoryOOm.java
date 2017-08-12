@@ -1,8 +1,7 @@
-package com.heshan.framework.common.VM;
+package com.heshan.framework.common.jvm;
 
 import sun.misc.Unsafe;
 
-import java.lang.ref.SoftReference;
 import java.lang.reflect.Field;
 
 /**
