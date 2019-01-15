@@ -1,270 +1,247 @@
 package com.heshan.framework.utils.jackson2;
 
-import java.nio.charset.Charset;
-import java.text.ParseException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.io.IOException;
+import java.rmi.UnexpectedException;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.JsonParser;
-import com.heshan.framework.utils.date.JSONDateFormat;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
-import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
-import com.fasterxml.jackson.databind.ser.std.NullSerializer;
+import com.fasterxml.jackson.databind.util.JSONPObject;
+
 /**
- * @description: jsonUtils 工具类
- * @version Ver 1.0
+ * Jackson2Utils，jackson2.x中jackson-databind的实用工具类，参见
+ * https://github.com/FasterXML/jackson-databind
+ *
+ * @author Erich
+ *
  */
-public class JsonUtils {
+public abstract class JsonUtils {
 
-	public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
+    private JsonUtils() {
 
-	private static final Logger log = Logger.getLogger(JsonUtils.class);
+    }
 
-	static boolean isPretty = false;
+    /**
+     * 将给定的json字符串反序列化成java对象
+     *
+     * @param <T>
+     * @param content
+     *            给定的json字符串
+     * @param targetType
+     *            目标类型
+     * @return
+     */
+    public static <T> T unmarshal(String content, Class<T> targetType) {
 
-	private static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
-	static JSONDateFormat defaultDateFormat = new JSONDateFormat(DEFAULT_DATE_FORMAT);
-	
-	static BidDefaultSerializerProvider sp = new BidDefaultSerializerProvider();
-	static {
-		sp.setNullValueSerializer(NullSerializer.instance);
-		
-	}
-	
-	/**
-	 * 增加ObjectMapper 对象池模式，提高性能
-	 */
-	public static ConcurrentLinkedQueue<ObjectMapper> mapperQueue = new ConcurrentLinkedQueue<ObjectMapper>();
-	
-	/**
-	 * 获取mapper对象
-	 *
-	 * @author 	: <a href="mailto:dejianliu@ebnew.com">liudejian</a>  2014-12-10 下午2:28:03
-	 * @return
-	 */
-	private static ObjectMapper getObjectMapper() {
-		ObjectMapper mapper = mapperQueue.poll();
-		if(mapper == null) {
-			mapper = new  ObjectMapper(null, sp, null);
-			//将数字作来字符串输出(1.为了兼容json-lib-2.4-jdk1.5, 2.长整型在返回前端页面时JS无法处理，将丢失后面的尾数)
-			mapper.configure(JsonGenerator.Feature.WRITE_NUMBERS_AS_STRINGS, Boolean.TRUE);
-			mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-			mapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
-			// mapper.setSerializationInclusion(JsonInclude.Include.NON_DEFAULT);
-			mapper.configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT, true);
-			mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-			mapper.configure(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES, false);
-			mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS, true);
-			mapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
-			mapper.configure(JsonParser.Feature.ALLOW_NON_NUMERIC_NUMBERS, false);
- 		}
-		return mapper;
-	}
-	/**
-	 * 返回ObjectMapper对象
-	 *
-	 * @author 	: <a href="mailto:dejianliu@ebnew.com">liudejian</a>  2014-12-10 下午2:28:14
-	 * @param mapper
-	 */
-	private static void returnMapper(ObjectMapper mapper) {
-		if(mapper != null) {
-			mapperQueue.offer(mapper);
-		}
-	}
-	
-	public static boolean isPretty() {
-		return isPretty;
-	}
+        if (StringUtils.isBlank(content)) {
+            return null;
+        }
 
-	public static void setPretty(boolean isPretty) {
-		JsonUtils.isPretty = isPretty;
-	}
+        try {
+            return DefaultMapperHolder.OBJECT_MAPPER.readValue(content, targetType);
+        } catch (Exception e) {
+            throw transJacksonException(e);
+        }
+    }
+    
+    public static <T> T unmarshal(byte[] content, Class<T> targetType) {
+        if (content == null) {
+            return null;
+        }
+        try {
+            return DefaultMapperHolder.OBJECT_MAPPER.readValue(content, targetType);
+        } catch (Exception e) {
+            throw transJacksonException(e);
+        }
+    }
 
-	/**
-	 * JSON串转换为Java泛型对象，可以是各种类型，此方法最为强大。用法看测试用例。
-	 * 
-	 * @param <T>
-	 * @param jsonString
-	 *            JSON字符串
-	 * @param tr
-	 *            TypeReference,例如: new TypeReference< List<FamousUser> >(){}
-	 * @return List对象列表
-	 */
-	@SuppressWarnings("unchecked")
-	public static <T> T json2GenericObject(String jsonString,TypeReference<T> tr, String dateFormat) {
-		ObjectMapper objectMapper = null;
-		if (StringUtils.isNotEmpty(jsonString)) {
-			try {
-				objectMapper = getObjectMapper();
-				objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+    /**
+     * 将给定的json字符串反序列化成java对象，适合类型中包含泛型参数类型的情况
+     *
+     * @param <T>
+     * @param content
+     * @param targetType
+     * @param parameterTypes
+     * @return
+     */
+    public static <T> T unmarshal(String content, Class<T> targetType, Class<?>... parameterTypes) {
+        if (StringUtils.isBlank(content)) {
+            return null;
+        }
+        JavaType javaType = DefaultMapperHolder.OBJECT_MAPPER.getTypeFactory().constructParametrizedType(targetType,
+            targetType, parameterTypes);
+        try {
+            return DefaultMapperHolder.OBJECT_MAPPER.readValue(content, javaType);
+        } catch (Exception e) {
+            throw transJacksonException(e);
+        }
+    }
 
-				if (StringUtils.isBlank(dateFormat)) {
-					objectMapper.setDateFormat(defaultDateFormat);
-				} else {
-					objectMapper.setDateFormat(new JSONDateFormat(dateFormat));
-				}
-				return (T) objectMapper.readValue(jsonString, tr);
-			} catch (Exception e) {
- 				log.error(e.getMessage(), e);
-			} finally {
-				returnMapper(objectMapper);
-			}
-		}
-		return null;
-	}
-	
-	/**
-	 * Json字符串转Java对象
-	 * 
-	 * @param jsonString
-	 * @param c
-	 * @return
-	 */
-	public static <T> T json2Object(String jsonString, Class<T> c,String dateFormat) {
-		ObjectMapper objectMapper = null;
-		if (StringUtils.isNotEmpty(jsonString)) {
-			try {
-				objectMapper = getObjectMapper(); 
-				objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-				if (StringUtils.isEmpty(dateFormat)) {
-					objectMapper.setDateFormat(defaultDateFormat);
-				} else {
-					objectMapper.setDateFormat(new JSONDateFormat(dateFormat));
-				}
-				return (T)objectMapper.readValue(jsonString, c);
-			} catch (Exception e) {
- 				log.error(e.getMessage(), e);
-			} finally {
-				returnMapper(objectMapper);
-			}
-		}
-		return null;
-	}
-	/**
-	 * Json字符串转Java对象
-	 *
-	 * @param jsonString
-	 * @param c
-	 * @return
-	 */
-	public static <T> T json2Object(String jsonString, Class<T> c) {
-		return  json2Object(jsonString,c,null);
-	}
+    /**
+     * 使用给定的json字符串，局部更新给定的对象
+     *
+     * @param <T>
+     * @param content
+     *            给定的json字符串
+     * @param beanToUpdate
+     *            给定的对象
+     * @return
+     */
+    public static <T> T unmarshal(String content, T beanToUpdate) {
+        try {
+            return DefaultMapperHolder.OBJECT_MAPPER.readerForUpdating(beanToUpdate).readValue(content);
+        } catch (Exception e) {
+            throw transJacksonException(e);
+        }
+    }
+    
+    /**
+     * 将给定的java对象序列化json字符串. 默认情况下，该Java对象上的所有属性都将被序列化。 但如果某个属性上标注了
+     * {@link JsonIgnore}注解，则这个属性将不会被序列化。 如果某个属性上标注了{@link JsonInclude}
+     * 注解，将定制该属性在null,empty等值的情况下是否被序列化。 属性在null,empty等值的情况下是否被序列化，还可以使用:
+     * {@link JsonUtils#marshalNonDefault(Object)},
+     * {@link JsonUtils#marshalNonEmpty(Object)},
+     * {@link JsonUtils#marshalNonNull(Object)}等方法控制所有属性的这些行为。
+     *
+     * @param obj
+     *            给定的java对象
+     * @return 序列化后的JSON字符串
+     */
+    public static String marshal(Object obj) {
+        try {
+            return DefaultMapperHolder.OBJECT_MAPPER.writeValueAsString(obj);
+        } catch (Exception e) {
+            throw transJacksonException(e);
+        }
+    }
 
-	/**
-	 * Java对象转Json字符串
-	 * 
-	 * @param object
-	 *            目标对象
-	 * @param executeFields
-	 *            排除字段
-	 * @param includeFields
-	 *            包含字段
-	 * @param dateFormat
-	 *            时间格式化
-	 * @return
-	 */
-	public static String toJson(Object object, String[] executeFields,
-			String[] includeFields, String dateFormat) {
-		String jsonString = "";
-		ObjectMapper objectMapper = null;
-		try {
-			BidBeanSerializerFactory bidBeanFactory = BidBeanSerializerFactory.instance;
-			objectMapper = getObjectMapper(); 
-		 
-			if (StringUtils.isEmpty(dateFormat)) {
-				objectMapper.setDateFormat(defaultDateFormat);
-			} else {
-				objectMapper.setDateFormat(new JSONDateFormat(dateFormat));
-			}
-			if (includeFields != null) {
-				String filterId = "includeFilter";
-				objectMapper.setFilters(new SimpleFilterProvider().addFilter(filterId, SimpleBeanPropertyFilter
-								.filterOutAllExcept(includeFields)));
-				bidBeanFactory.setFilterId(filterId);
-				objectMapper.setSerializerFactory(bidBeanFactory);
- 
-			} else if (includeFields == null && executeFields != null) {
-				String filterId = "executeFilter";
-				objectMapper.setFilters(new SimpleFilterProvider().addFilter(
-						filterId, SimpleBeanPropertyFilter
-								.serializeAllExcept(executeFields)));
-				bidBeanFactory.setFilterId(filterId);
- 			}
- 			if (isPretty) {
-				jsonString = objectMapper.writerWithDefaultPrettyPrinter()
-						.writeValueAsString(object);
-			} else {
-				jsonString = objectMapper.writeValueAsString(object);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			log.warn(e.getMessage(), e);
-		} finally {
-			returnMapper(objectMapper);
-		}
-		return jsonString;
-	}
-	/**
-	 * Java对象转Json字符串
-	 *
-	 * @param object
-	 *            目标对象
-	 * @return
-	 */
-	public static String toJson(Object object) {
-		return  toJson(object,(String[])null,(String[])null,null);
-	}
-	
+    /**
+     * 将给定的java对象序列化json字符串，忽略给定对象的null值属性.
+     *
+     *
+     * @param obj
+     *            给定的java对象
+     * @return
+     */
+    public static String marshalNonNull(Object obj) {
+        try {
+            return NonNullMapperHodler.OBJECT_MAPPER.writeValueAsString(obj);
+        } catch (Exception e) {
+            throw transJacksonException(e);
+        }
+    }
 
-	public static void main(String[] args) throws ParseException {
-		// App a = new App();
-		// a.setAppIp("123123");
-		// a.setAppName("中华人民共和国");
-		// Person person = new Person();
-		// person.setDifTime(5000);
-		// Map<String, Object> dataMap = new HashMap<String, Object>();
-		// dataMap.put(Person.class.getName(), person);
-		// a.setDataMap(dataMap);
-		// a.setCreateTime(new Date());
-		// String aa = JsonUtils.toJson(a, new String[] { "id"},null,
-		// "yyyy-MM-dd");
-		// System.out.println(aa);
-		// App app = JsonUtils.json2Object(aa, App.class, "yyyy-MM-dd");
-		// System.out.println(ToStringBuilder.reflectionToString(app));
+    /**
+     * 将给定的java对象序列化json字符串，忽略给定对象的初始值未改变的属性
+     *
+     * @param obj
+     *            给定的java对象
+     * @return
+     */
+    public static String marshalNonDefault(Object obj) {
+        try {
+            return NonDefaultMapperHolder.OBJECT_MAPPER.writeValueAsString(obj);
+        } catch (Exception e) {
+            throw transJacksonException(e);
+        }
+    }
 
-		Map<String, Object> mapV = new HashMap<String, Object>();
-		mapV.put("liu", "hello");
-		mapV.put("age", "31");
-		mapV.put("address", "四川省");
-		mapV.put("date", new Date());
-		String[] str=new String[1];
-		str[0]="password";
-		Person p=new Person();
-		p.setName("11");
-		p.setPassword("22");
-		String res = JsonUtils.toJson(mapV, str, null, "yyyy-MM-dd HH:mm:ss");
-		String res1 = JsonUtils.toJson(p, null, str, "yyyy-MM-dd HH:mm:ss");
-		System.out.println("---"+res1);
+    /**
+     * 将给定的java对象序列化json字符串，忽略给定对象的属性为Map或Collection时isEmpty方法为true的情况,
+     * String或数组length为0的情况
+     *
+     * @param obj
+     * @return
+     */
+    public static String marshalNonEmpty(Object obj) {
+        try {
+            return NonEmptyMapperHolder.OBJECT_MAPPER.writeValueAsString(obj);
+        } catch (Exception e) {
+            throw transJacksonException(e);
+        }
+    }
 
-		System.out.println(res);
-		HashMap<?, ?> map = JsonUtils.json2Object(res, HashMap.class, "yyyy-MM-dd HH:mm:ss");
-		System.out.println(map.get("date"));
+    /**
+     * 将给定的对象使用给定的functionName序列化成JSONP格式
+     *
+     * @param functionName
+     *            给定的functionName
+     * @param obj
+     *            给定的对象
+     * @return
+     */
+    public static String marshalToJSONP(String functionName, Object obj) {
+        JSONPObject jsonpObject = new JSONPObject(functionName, obj);
+        return marshal(jsonpObject);
+    }
 
-		JSONDateFormat fm = new JSONDateFormat("yyyy-MM-dd");
-		System.out.println(fm.format(new Date()));
-		System.out.println(fm.parse(fm.format(new Date())));
+    /**
+     * 将Jacson API的checked异常转换成unchecked异常
+     *
+     * @param e
+     * @return
+     */
+    private static UnexpectedException transJacksonException(Exception e) {
+        if (e instanceof JsonParseException) {
+            return new UnexpectedException("Json Parse Exception: " + e.getMessage(), e);
+        }
 
-	}
+        if (e instanceof JsonMappingException) {
+            return new UnexpectedException("Json Mapping Exception: " + e.getMessage(), e);
+        }
 
+        if (e instanceof JsonProcessingException) {
+            return new UnexpectedException("Json Mapping Exception: " + e.getMessage(), e);
+        }
+
+        if (e instanceof IOException) {
+            return new UnexpectedException("IO Exception: " + e.getMessage(), e);
+        }
+
+        return new UnexpectedException("Unexpected exception thrown", e);
+    }
+
+    private static final class DefaultMapperHolder {
+        protected static final ObjectMapper OBJECT_MAPPER = newObjectMapper(Include.ALWAYS);
+
+        private DefaultMapperHolder() {
+        }
+    }
+
+    private static final class NonNullMapperHodler {
+        protected static final ObjectMapper OBJECT_MAPPER = newObjectMapper(Include.NON_NULL);
+
+        private NonNullMapperHodler() {
+        }
+    }
+
+    private static final class NonDefaultMapperHolder {
+        protected static final ObjectMapper OBJECT_MAPPER = newObjectMapper(Include.NON_DEFAULT);
+
+        private NonDefaultMapperHolder() {
+        }
+    }
+
+    private static final class NonEmptyMapperHolder {
+        protected static final ObjectMapper OBJECT_MAPPER = newObjectMapper(Include.NON_EMPTY);
+
+        private NonEmptyMapperHolder() {
+        }
+    }
+
+    private static ObjectMapper newObjectMapper(Include include) {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.setSerializationInclusion(include);
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        mapper.configure(DeserializationFeature.FAIL_ON_NUMBERS_FOR_ENUMS, true);
+        return mapper;
+    }
 }

@@ -15,28 +15,6 @@
     <module>framework-redis-jredis</module>
     <module>framework-spring-data-redis</module>
 
-    <!-- <module>framework-core-old</module>
-    <module>framework-dao</module>
-    <module>framework-redis</module>
-    <module>framework-log4j</module>
-    <module>framework-web</module>
-    <module>framework-jms</module>
-    <module>framework-kafka</module>
-    <module>framework-hazelcast</module>
-    <module>framework-hadoop</module>
-    <module>framework-all</module>
-    <module>framework-all-small</module>
-    <module>framework-spring-boot</module>
-    <module>framework-jersey</module>
-    <module>framework-config</module>
-    <module>framework-multi-dao</module>
-    <module>framework-cors</module>
-    <module>framework-rest-message</module>-->
-    <!-- <module>framework-ssh</module>  -->
-
-    <!--<module>framework-document</module> <module>framework-ssh</module> -->
-    <!-- <module>framework-test</module> -->
-    <!--<module>framework-tomcat</module> -->
   </modules>
 
 
@@ -75,18 +53,13 @@
     <commons-logging.version>1.1.3</commons-logging.version>
     <commons-pool.version>1.6</commons-pool.version>
     <commons-daemon.version>1.0.11</commons-daemon.version>
-    <commons-fileupload.version>1.3.1</commons-fileupload.version>
+    <commons-fileupload.version>[1.3.3,)</commons-fileupload.version>
     <commons-codec.version>1.10</commons-codec.version>
     <commons-discovery.version>0.5</commons-discovery.version>
     <ds.version>0.0.3-SNAPSHOT</ds.version>
 
-    <spring.version>4.1.3.RELEASE</spring.version> <!-- 3.1.2.RELEASE -->
-    <spring.boot.version>1.2.0.RELEASE</spring.boot.version>
-    <spring.security.version>3.2.5.RELEASE</spring.security.version> <!-- 3.0.7.RELEASE -->
-
-    <spring.security.cas.version>3.2.5.RELEASE</spring.security.cas.version> <!-- 3.0.7.RELEASE -->
-    <spring.security.cas.client.version>3.0.8.RELEASE</spring.security.cas.client.version>
-
+    <spring.version>4.3.20.RELEASE</spring.version> <!-- 4.3.20.RELEASE -->
+    <spring.boot.version>1.5.15.RELEASE</spring.boot.version>
     <mybatis.version>3.3.0-SNAPSHOT</mybatis.version> <!-- 3.1.1 3.2.8 -->
     <mybatis.spring.version>1.2.4-SNAPSHOT</mybatis.spring.version> <!-- 1.1.1 1.2.2 1.2.3-SNAPSHOT -->
     <mybatis.ehcache.version>1.0.0</mybatis.ehcache.version>
@@ -105,7 +78,7 @@
     <slf4j.version>1.7.7</slf4j.version>
 
     <jackson.version>1.9.13</jackson.version>
-    <jackson2.version>2.5.4</jackson2.version> <!-- 2.5.4 -->
+    <jackson2.version>[2.8.11.1,)</jackson2.version> <!-- [2.8.11.1,) -->
     <json-lib.version>2.4</json-lib.version>
     <common.httpclient.version>4.3.6</common.httpclient.version>  <!-- 4.3.6 -->
     <hibernate.validator.version>5.1.3.Final</hibernate.validator.version>
@@ -129,9 +102,7 @@
     <scala.parser.version>1.0.2</scala.parser.version>
     <scala.version>2.11.5</scala.version>
     <hazelcast.version>3.3-EA2</hazelcast.version>
-    <tomcat.version>8.0.15</tomcat.version><!-- 7.0.55 -->
-    <!-- shiro 依赖 -->
-    <shiro.version>1.2.3</shiro.version>
+    <tomcat.version>[8.0.53,)</tomcat.version><!-- [8.0.53,) -->
 
     <beetl.version>2.1.1</beetl.version>
     <ecj.version>4.4</ecj.version>
@@ -158,129 +129,6 @@
         <artifactId>framework-core</artifactId>
         <version>${framework.version}</version>
       </dependency>
-      <!--
-            <dependency>
-              <groupId>cn.bidlink.framework</groupId>
-              <artifactId>framework-cors</artifactId>
-              <version>${framework.version}</version>
-            </dependency>
-            <dependency>
-              <groupId>cn.bidlink.framework</groupId>
-              <artifactId>framework-core-old</artifactId>
-              <version>${framework.version}</version>
-            </dependency>
-            <dependency>
-              <groupId>cn.bidlink.framework</groupId>
-              <artifactId>framework-dao</artifactId>
-              <version>${framework.version}</version>
-            </dependency>
-
-            <dependency>
-              <groupId>cn.bidlink.framework</groupId>
-              <artifactId>framework-log4j</artifactId>
-              <version>${framework.version}</version>
-            </dependency>
-
-            <dependency>
-              <groupId>cn.bidlink.framework</groupId>
-              <artifactId>framework-web</artifactId>
-              <version>${framework.version}</version>
-            </dependency>
-
-            <dependency>
-              <groupId>cn.bidlink.framework</groupId>
-              <artifactId>framework-jms</artifactId>
-              <version>${framework.version}</version>
-            </dependency>
-            <dependency>
-              <groupId>cn.bidlink.framework</groupId>
-              <artifactId>framework-redis</artifactId>
-              <version>${framework.version}</version>
-            </dependency>
-
-
-            <dependency>
-              <groupId>cn.bidlink.framework</groupId>
-              <artifactId>framework-hazelcast-client</artifactId>
-              <version>${framework.version}</version>
-            </dependency>
-
-            <dependency>
-              <groupId>cn.bidlink.framework</groupId>
-              <artifactId>framework-kafka</artifactId>
-              <version>${framework.version}</version>
-            </dependency>
-
-            <dependency>
-              <groupId>cn.bidlink.framework</groupId>
-              <artifactId>framework-all</artifactId>
-              <version>${framework.version}</version>
-            </dependency>
-
-            <dependency>
-              <groupId>cn.bidlink.framework</groupId>
-              <artifactId>framework-hbase</artifactId>
-              <version>${framework.hbase.version}</version>
-            </dependency>
-            <dependency>
-              <groupId>cn.bidlink.framework</groupId>
-              <artifactId>framework-hdfs</artifactId>
-              <version>${framework.hbase.version}</version>
-            </dependency>
-
-
-            <dependency>
-              <groupId>cn.bidlink.framework</groupId>
-              <artifactId>framework-all-small</artifactId>
-              <version>${framework.version}</version>
-            </dependency>
-
-            <dependency>
-              <groupId>cn.bidlink.framework</groupId>
-              <artifactId>framework-config-client</artifactId>
-              <version>${framework.version}</version>
-            </dependency>
-
-            <dependency>
-              <groupId>cn.bidlink.framework</groupId>
-              <artifactId>framework-config-maven</artifactId>
-              <version>${framework.version}</version>
-            </dependency>
-
-            <dependency>
-              <groupId>cn.bidlink.framework</groupId>
-              <artifactId>framework-spring-boot</artifactId>
-              <version>${framework.version}</version>
-            </dependency>
-            <dependency>
-              <groupId>cn.bidlink.framework</groupId>
-              <artifactId>framework-jersey-client</artifactId>
-              <version>${framework.version}</version>
-            </dependency>
-
-            <dependency>
-              <groupId>cn.bidlink.framework</groupId>
-              <artifactId>framework-jersey-server</artifactId>
-              <version>${framework.version}</version>
-            </dependency>
-
-            <dependency>
-              <groupId>cn.bidlink.framework</groupId>
-              <artifactId>framework-tomcat</artifactId>
-              <version>${framework.version}</version>
-            </dependency>
-
-            <dependency>
-              <groupId>cn.bidlink.framework</groupId>
-              <artifactId>framework-multi-dao</artifactId>
-              <version>${framework.version}</version>
-            </dependency>
-            <dependency>
-              <groupId>cn.bidlink.framework</groupId>
-              <artifactId>rest-message-client</artifactId>
-              <version>${framework.version}</version>
-            </dependency>-->
-
       <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-databind</artifactId>
@@ -410,69 +258,7 @@
 
         </exclusions>
       </dependency>
-      <dependency>
-        <groupId>org.springframework.security</groupId>
-        <artifactId>spring-security-core</artifactId>
-        <version>${spring.security.version}</version>
-        <scope>provided</scope>
-        <exclusions>
-          <exclusion>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-expression</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-          </exclusion>
-
-          <exclusion>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-aop</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-beans</artifactId>
-          </exclusion>
-
-          <exclusion>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-
-      <dependency>
-        <groupId>org.springframework.security</groupId>
-        <artifactId>spring-security-remoting</artifactId>
-        <version>${spring.security.version}</version>
-        <scope>provided</scope>
-
-        <exclusions>
-          <exclusion>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-          </exclusion>
-
-          <exclusion>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-beans</artifactId>
-          </exclusion>
-
-        </exclusions>
-      </dependency>
-
+      
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-orm</artifactId>
@@ -1163,52 +949,6 @@
         <version>${spring.data.redis.version}</version>
       </dependency>
 
-
-      <!-- 嵌入式tomcat -->
-      <dependency>
-        <groupId>org.apache.tomcat.embed</groupId>
-        <artifactId>tomcat-embed-core</artifactId>
-        <version>${tomcat.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.eclipse.jdt.core.compiler</groupId>
-        <artifactId>ecj</artifactId>
-        <version>${ecj.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.tomcat.embed</groupId>
-        <artifactId>tomcat-embed-el</artifactId>
-        <version>${tomcat.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.tomcat.embed</groupId>
-        <artifactId>tomcat-embed-jasper</artifactId>
-        <version>${tomcat.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.tomcat.embed</groupId>
-        <artifactId>tomcat-embed-logging-juli</artifactId>
-        <version>${tomcat.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.tomcat.embed</groupId>
-        <artifactId>tomcat-embed-logging-log4j</artifactId>
-        <version>${tomcat.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.tomcat.embed</groupId>
-        <artifactId>tomcat-embed-websocket</artifactId>
-        <version>${tomcat.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.tomcat</groupId>
-        <artifactId>tomcat-dbcp</artifactId>
-        <version>${tomcat.version}</version>
-      </dependency>
-
-
-
-
       <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
@@ -1302,62 +1042,11 @@
         <version>${disruptor.version}</version>
       </dependency>
 
-      <!-- shiro start -->
-      <dependency>
-        <groupId>org.apache.shiro</groupId>
-        <artifactId>shiro-spring</artifactId>
-        <version>${shiro.version}</version>
-        <exclusions>
-          <exclusion>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-aspectj</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>jsp-api</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jcl-over-slf4j</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <!-- shiro end -->
 
       <dependency>
         <groupId>com.yammer.metrics</groupId>
         <artifactId>metrics-core</artifactId>
         <version>${metrics.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>cn.bidlink.ds</groupId>
-        <artifactId>ds-dto</artifactId>
-        <version>${ds.version}</version>
       </dependency>
 
     </dependencies>

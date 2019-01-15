@@ -1,7 +1,6 @@
 package com.heshan.framework.utils.jackson2;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * @author <a href="mailto:heshan664754022@gmail.com">Frank</a>
